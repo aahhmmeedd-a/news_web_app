@@ -46,7 +46,6 @@ class _NewsPageState extends State<NewsPage> {
     setState(() {
       isAssigned = true;
     });
-    print(newsData[0]['articles'].length);
   }
 
   @override
@@ -76,44 +75,49 @@ class _NewsPageState extends State<NewsPage> {
             alignment: Alignment.center,
             child: Column(
               children: [
-                NewsBlock(
-                  controller: _controller,
-                  isAssigned: isAssigned,
-                  newsData: newsData,
-                  newsTitle: newsData[0]["articles"][index]["title"] == null
-                      ? "No Title"
-                      : newsData[0]["articles"][index]["title"],
-                  newsDesc:
-                      newsData[0]["articles"][index]["description"] == null
-                          ? "No Description"
-                          : newsData[0]["articles"][index]["description"],
-                  pubAt: newsData[0]["articles"][index]["publishedAt"] == null
-                      ? "No know published Date"
-                      : newsData[0]["articles"][index]["publishedAt"],
-                  urlToNews: newsData[0]["articles"][index]["url"] == null
-                      ? showDialog(
-                          context: context,
-                          barrierDismissible:
-                              false, // disables popup to close if tapped outside popup (need a button to close)
-                          builder: (BuildContext context) {
-                            return AlertDialog(
-                              title: const Text(
-                                "No valid url!",
-                              ),
-                              content: const Text("Cannot redirect!"),
-                              //buttons?
-                              actions: <Widget>[
-                                TextButton(
-                                  child: const Text("Close"),
-                                  onPressed: () {
-                                    Navigator.of(context).pop();
-                                  }, //closes popup
-                                ),
-                              ],
-                            );
-                          })
-                      : newsData[0]["articles"][index]["url"],
-                ),
+                isAssigned
+                    ? NewsBlock(
+                        controller: _controller,
+                        isAssigned: isAssigned,
+                        newsData: newsData,
+                        newsTitle:
+                            newsData[0]["articles"][index]["title"] == null
+                                ? "No Title"
+                                : newsData[0]["articles"][index]["title"],
+                        newsDesc: newsData[0]["articles"][index]
+                                    ["description"] ==
+                                null
+                            ? "No Description"
+                            : newsData[0]["articles"][index]["description"],
+                        pubAt: newsData[0]["articles"][index]["publishedAt"] ==
+                                null
+                            ? "No know published Date"
+                            : newsData[0]["articles"][index]["publishedAt"],
+                        urlToNews: newsData[0]["articles"][index]["url"] == null
+                            ? showDialog(
+                                context: context,
+                                barrierDismissible:
+                                    false, // disables popup to close if tapped outside popup (need a button to close)
+                                builder: (BuildContext context) {
+                                  return AlertDialog(
+                                    title: const Text(
+                                      "No valid url!",
+                                    ),
+                                    content: const Text("Cannot redirect!"),
+                                    //buttons?
+                                    actions: <Widget>[
+                                      TextButton(
+                                        child: const Text("Close"),
+                                        onPressed: () {
+                                          Navigator.of(context).pop();
+                                        }, //closes popup
+                                      ),
+                                    ],
+                                  );
+                                })
+                            : newsData[0]["articles"][index]["url"],
+                      )
+                    : const CircularProgressIndicator(),
                 ElevatedButton(
                   child: const Text("NextNews"),
                   onPressed: () {
