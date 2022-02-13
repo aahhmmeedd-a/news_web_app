@@ -80,21 +80,15 @@ class _NewsPageState extends State<NewsPage> {
                         controller: _controller,
                         isAssigned: isAssigned,
                         newsData: newsData,
-                        newsTitle:
-                            newsData[0]["articles"][index]["title"] == null
-                                ? "No Title"
-                                : newsData[0]["articles"][index]["title"],
+                        newsTitle: newsData[0]["articles"][index]["title"] ??
+                            "No Title",
                         newsDesc: newsData[0]["articles"][index]
-                                    ["description"] ==
-                                null
-                            ? "No Description"
-                            : newsData[0]["articles"][index]["description"],
-                        pubAt: newsData[0]["articles"][index]["publishedAt"] ==
-                                null
-                            ? "No know published Date"
-                            : newsData[0]["articles"][index]["publishedAt"],
-                        urlToNews: newsData[0]["articles"][index]["url"] == null
-                            ? showDialog(
+                                ["description"] ??
+                            "No Description",
+                        pubAt: newsData[0]["articles"][index]["publishedAt"] ??
+                            "unknown publish date",
+                        urlToNews: newsData[0]["articles"][index]["url"] ??
+                            showDialog(
                                 context: context,
                                 barrierDismissible:
                                     false, // disables popup to close if tapped outside popup (need a button to close)
@@ -114,9 +108,7 @@ class _NewsPageState extends State<NewsPage> {
                                       ),
                                     ],
                                   );
-                                })
-                            : newsData[0]["articles"][index]["url"],
-                      )
+                                }))
                     : const CircularProgressIndicator(),
                 ElevatedButton(
                   child: const Text("NextNews"),
@@ -149,7 +141,7 @@ class _NewsPageState extends State<NewsPage> {
                           });
                     }
                   },
-                )
+                ),
               ],
             )),
       ]),
