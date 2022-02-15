@@ -71,21 +71,59 @@ class _NewsPageState extends State<NewsPage> {
             width: MediaQuery.of(context).size.width * 0.7,
             height: MediaQuery.of(context).size.height * 0.85,
             alignment: Alignment.center,
-            child: Column(
-              children: [
-                isAssigned
-                    ? NewsBlock(
-                        controller: _controller,
-                        isAssigned: isAssigned,
-                        newsData: newsData,
-                        newsTitle: newsData[0]["articles"][index]["title"] ??
-                            "No Title",
-                        newsDesc: newsData[0]["articles"][index]
-                                ["description"] ??
-                            "No Description",
-                        pubAt: newsData[0]["articles"][index]["publishedAt"] ??
-                            "unknown publish date",
-                        urlToNews: newsData[0]["articles"][index]["url"] ??
+            child: SingleChildScrollView(
+              controller: _controller,
+              child: Column(
+                children: [
+                  isAssigned
+                      ? NewsBlock(
+                          controller: _controller,
+                          isAssigned: isAssigned,
+                          newsData: newsData,
+                          newsTitle: newsData[0]["articles"][index]["title"] ??
+                              "No Title",
+                          newsDesc: newsData[0]["articles"][index]
+                                  ["description"] ??
+                              "No Description",
+                          pubAt: newsData[0]["articles"][index]
+                                  ["publishedAt"] ??
+                              "unknown publish date",
+                          urlToNews: newsData[0]["articles"][index]["url"] ??
+                              showDialog(
+                                  context: context,
+                                  barrierDismissible:
+                                      false, // disables popup to close if tapped outside popup (need a button to close)
+                                  builder: (BuildContext context) {
+                                    return AlertDialog(
+                                      title: const Text(
+                                        "No valid url!",
+                                      ),
+                                      content: const Text("Cannot redirect!"),
+                                      //buttons?
+                                      actions: <Widget>[
+                                        TextButton(
+                                          child: const Text("Close"),
+                                          onPressed: () {
+                                            Navigator.of(context).pop();
+                                          }, //closes popup
+                                        ),
+                                      ],
+                                    );
+                                  }))
+                      : const CircularProgressIndicator(),
+                  Padding(
+                    padding: const EdgeInsets.all(2.0),
+                    child: FittedBox(
+                      fit: BoxFit.cover,
+                      child: ElevatedButton(
+                        child: const Text("NextNews"),
+                        onPressed: () {
+                          if (index < newsData[0]['articles'].length - 1) {
+                            setState(() {
+                              index += 1;
+                            });
+                          } else if (index ==
+                              newsData[0]['articles'].length - 1) {
                             showDialog(
                                 context: context,
                                 barrierDismissible:
@@ -93,9 +131,9 @@ class _NewsPageState extends State<NewsPage> {
                                 builder: (BuildContext context) {
                                   return AlertDialog(
                                     title: const Text(
-                                      "No valid url!",
+                                      "No news!",
                                     ),
-                                    content: const Text("Cannot redirect!"),
+                                    content: const Text("No new news to show!"),
                                     //buttons?
                                     actions: <Widget>[
                                       TextButton(
@@ -106,41 +144,14 @@ class _NewsPageState extends State<NewsPage> {
                                       ),
                                     ],
                                   );
-                                }))
-                    : const CircularProgressIndicator(),
-                ElevatedButton(
-                  child: const Text("NextNews"),
-                  onPressed: () {
-                    if (index < newsData[0]['articles'].length - 1) {
-                      setState(() {
-                        index += 1;
-                      });
-                    } else if (index == newsData[0]['articles'].length - 1) {
-                      showDialog(
-                          context: context,
-                          barrierDismissible:
-                              false, // disables popup to close if tapped outside popup (need a button to close)
-                          builder: (BuildContext context) {
-                            return AlertDialog(
-                              title: const Text(
-                                "No news!",
-                              ),
-                              content: const Text("No new news to show!"),
-                              //buttons?
-                              actions: <Widget>[
-                                TextButton(
-                                  child: const Text("Close"),
-                                  onPressed: () {
-                                    Navigator.of(context).pop();
-                                  }, //closes popup
-                                ),
-                              ],
-                            );
-                          });
-                    }
-                  },
-                ),
-              ],
+                                });
+                          }
+                        },
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             )),
       ]),
     ));
