@@ -1,9 +1,8 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:url_launcher/link.dart';
 
 class NewsBlock extends StatelessWidget {
+  @override
   final ScrollController? controller;
   final bool? isAssigned;
   final List? newsData;

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import './news_block.dart';
 import './news_page.dart';
 
 void main() => runApp(const MyApp());

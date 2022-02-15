@@ -14,8 +14,6 @@ class NewsPage extends StatefulWidget {
 }
 
 class _NewsPageState extends State<NewsPage> {
-  final __controller = ScrollController();
-
   List newsApiKeys = [
     "4314d1a187b74cceaecd878d4916abe0",
     "6e645382a2f148c6bbb16d29f0c0fc11",
