@@ -7,7 +7,7 @@ import 'package:http/http.dart' as http;
 import 'package:date_format/date_format.dart';
 
 class NewsPage extends StatefulWidget {
-  NewsPage({Key? key}) : super(key: key);
+  const NewsPage({Key? key}) : super(key: key);
 
   @override
   State<NewsPage> createState() => _NewsPageState();
