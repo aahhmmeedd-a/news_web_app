@@ -1,0 +1,10 @@
+^C:\USERS\AGAGA\DOCUMENTS\PROJECTS\FLUTTERPROJS\NEWS_WEB_APP\BUILD\WINDOWS\CMAKEFILES\E02D919EE5B3357F415B63AC4AE2F90F\GENERATE.STAMP.RULE
+setlocal
+"C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -SC:/Users/agaga/Documents/Projects/Flutterprojs/news_web_app/windows -BC:/Users/agaga/Documents/Projects/Flutterprojs/news_web_app/build/windows --check-stamp-list CMakeFiles/generate.stamp.list --vs-solution-file C:/Users/agaga/Documents/Projects/Flutterprojs/news_web_app/build/windows/news_web_app.sln
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd

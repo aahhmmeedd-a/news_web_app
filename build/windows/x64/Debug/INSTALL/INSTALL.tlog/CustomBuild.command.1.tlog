@@ -1,0 +1,10 @@
+^C:\USERS\AGAGA\DOCUMENTS\PROJECTS\FLUTTERPROJS\NEWS_WEB_APP\BUILD\WINDOWS\CMAKEFILES\E02D919EE5B3357F415B63AC4AE2F90F\INSTALL_FORCE.RULE
+setlocal
+cd .
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd

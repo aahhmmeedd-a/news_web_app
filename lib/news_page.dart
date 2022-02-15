@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import './news_block.dart';
 import 'package:http/http.dart' as http;
@@ -31,16 +32,18 @@ class _NewsPageState extends State<NewsPage> {
 
   int index = 0;
 
-  final _controller = ScrollController();
+  final _controller = ScrollController(); //used
+  final anothercontroller = ScrollController(); //used
 
   getNews() async {
-    http.Response response = await http.get(Uri.parse(
-        "https://newsapi.org/v2/everything?q=programming&from=" +
-            formatDate(DateTime.now().subtract(const Duration(days: 7)),
-                [yyyy, '-', mm, '-', dd]) +
-            "&sortBy=publishedAt&apiKey=d32a99886414479ca5ff90620c0a4d32"));
-    final json = "[" + response.body + "]";
-    newsData = jsonDecode(json);
+    // http.Response response = await http.get(Uri.parse(
+    //     "https://newsapi.org/v2/everything?q=programming&from=" +
+    //         formatDate(DateTime.now().subtract(const Duration(days: 7)),
+    //             [yyyy, '-', mm, '-', dd]) +
+    //         "&sortBy=publishedAt&apiKey=d32a99886414479ca5ff90620c0a4d32"));
+    final String response = await rootBundle.loadString('../static/news.json');
+    final finalData = '[' + response + ']';
+    newsData = jsonDecode(finalData);
     setState(() {
       isAssigned = true;
     });
@@ -72,7 +75,7 @@ class _NewsPageState extends State<NewsPage> {
             height: MediaQuery.of(context).size.height * 0.85,
             alignment: Alignment.center,
             child: SingleChildScrollView(
-              controller: _controller,
+              controller: anothercontroller,
               child: Column(
                 children: [
                   isAssigned
